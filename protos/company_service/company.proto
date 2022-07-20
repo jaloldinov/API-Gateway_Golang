@@ -1,0 +1,41 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/company_service";
+
+
+service CompanyService {
+    rpc Create(CreateCompany) returns (Company) {}
+    rpc Get(CompanyId) returns (Company) {}
+    rpc GetAll(GetAllCompanyRequest) returns (GetAllCompanyResponse) {}
+    rpc Update(Company) returns (CompanyResult) {}
+    rpc Delete(CompanyId) returns (CompanyResult) {}
+}
+
+message Company {
+    string id = 1;
+    string name = 2;
+}
+
+message CreateCompany {
+    string name = 1;
+}
+
+message CompanyId {
+    string id = 1;
+}
+
+message GetAllCompanyRequest {
+    uint32 limit = 1;
+    uint32 offset = 2;
+    string name = 3;
+}
+
+message GetAllCompanyResponse {
+    repeated Company companies = 1;
+    uint32 count = 2;
+}
+
+message CompanyResult {
+    string result = 1;
+}

@@ -1,0 +1,43 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+
+service AttributeService {
+    rpc Create(CreateAttributeRequest) returns (Attribute) {}
+    rpc GetAll(GetAllAttributeRequest) returns (GetAllAttributeResponse) {}
+    rpc Get(AttributeId) returns (Attribute) {}
+    rpc Update(Attribute) returns (AttributeResult) {}
+    rpc Delete(AttributeId) returns (AttributeResult) {}
+}
+
+message CreateAttributeRequest {
+    string name = 1;
+    string attribute_type = 2;
+}
+
+message Attribute {
+    string id = 1;
+    string name = 2;
+    string attribute_type = 3;
+}
+
+message AttributeId {
+    string id = 1;
+}
+
+message AttributeResult {
+    string status = 1;
+}
+
+message GetAllAttributeRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string name = 3;
+}
+
+message GetAllAttributeResponse {
+    repeated Attribute attributes = 1;
+    int32 count = 2;
+}
+

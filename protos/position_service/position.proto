@@ -1,0 +1,69 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/position_service";
+import "attribute.proto";
+
+service PositionService {
+    rpc Create(CreatePositionRequest) returns (Position) {}
+    rpc Get(PositionId) returns (GetPositionResponse) {}
+    rpc GetAll(GetAllPositionRequest) returns (GetAllPositionResponse) {}
+    rpc Update(GetPositionResponse) returns (PositionStatus) {}
+    rpc Delete(PositionId) returns (PositionStatus) {}
+}
+
+message PositionAttribute {
+    string attribute_id = 1;
+    string value = 2;
+}
+
+message Position {
+    string id = 1;
+    string name = 2;
+    string profession_id = 3;
+    string company_id = 4;
+    repeated PositionAttribute position_attributes = 5;
+}
+
+message CreatePositionRequest {
+    string name = 1;
+    string profession_id = 2;
+    string company_id = 3;
+    repeated PositionAttribute position_attributes = 4;
+}
+
+message PositionId {
+    string id = 1;
+}
+
+message PositionStatus {
+    string status = 1;
+}
+
+message GetPositionResponse {
+    string id = 1;
+    string name = 2;
+    string profession_id = 3;
+    string company_id  = 4;
+    repeated GetPositionAttribute position_attributes = 5;
+}
+
+message GetPositionAttribute {
+    string id = 1;
+    string attribute_id = 2;
+    string value = 3;
+    Attribute attribute = 4;
+}
+
+message GetAllPositionRequest {
+    int64 offset = 1;
+    int64 limit  = 2;
+    string name = 3;
+    string profession_id = 4;
+    string company_id = 5;
+}
+
+message GetAllPositionResponse {
+    repeated GetPositionResponse positions  = 1;
+    int32 count = 2;
+}

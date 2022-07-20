@@ -1,0 +1,43 @@
+syntax="proto3";
+
+package position_service;
+option go_package="genproto/position_service";
+
+service ProfessionService {
+    rpc Create(CreateProfessionRequest) returns (Profession) {}
+    rpc GetAll(GetAllProfessionRequest) returns (GetAllProfessionResponse) {}
+    rpc Get(ProfessionId) returns (Profession) {}
+    rpc Update(Profession) returns (Result) {}
+    rpc Delete(ProfessionId) returns (Result) {}
+}
+
+message CreateProfessionRequest {
+    string name = 1;
+}
+
+message Profession {
+    string id = 1;
+    string name = 2;
+}
+
+message ProfessionId {
+    string id = 1;
+}
+
+
+message GetAllProfessionRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+    string search = 3;
+}
+
+message GetAllProfessionResponse {
+    repeated Profession professions = 1;
+    int32 count = 2;
+}
+
+message Result {
+    string result = 1;
+    string message = 2;
+}
+
